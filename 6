@@ -1,0 +1,107 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+// Structure to store student information
+struct Student
+ {
+string name;
+string rollNo;
+float marks;
+string grade;
+};
+
+// Function to calculate grade based on marks
+string calculateGrade(float marks) 
+{
+if (marks >= 90)
+return "A+";
+else if (marks >= 80)
+return "A";
+else if (marks >= 70)
+return "B+";
+else if (marks >= 60)
+return "B";
+else if (marks >= 50)
+return "C";
+else if (marks >= 40)
+return "D";
+else
+return "F";
+}
+
+int main() 
+{
+vector<Student> students; // Vector to store student records
+
+int choice;
+
+do {
+// Display menu
+cout << "\n--- Student Grading System ---\n";
+cout << "1. Add Student\n";
+cout << "2. Display Students\n";
+cout << "3. Exit\n";
+cout << "Enter your choice (1-3): ";
+cin >> choice;
+
+switch (choice)
+ {
+case 1:
+ {
+// Add student
+Student s;
+cout << "Enter student name: ";
+cin.ignore(); // Clear newline from previous input
+getline(cin, s.name);
+cout << "Enter roll number: ";
+getline(cin, s.rollNo);
+cout << "Enter marks (0-100): ";
+cin >> s.marks;
+
+// Validate marks
+
+if (s.marks < 0 || s.marks > 100) 
+{
+cout << "Invalid marks! Must be between 0 and 100.\n";
+break;
+}
+
+s.grade = calculateGrade(s.marks);
+students.push_back(s);
+cout << "Student " << s.name << " added successfully with grade " << s.grade << ".\n";
+break;
+}
+
+case 2:
+// Display students
+if (students.empty()) 
+{
+cout << "No student records found.\n";
+} else
+ {
+cout << "\n--- Student Records ---\n";
+for (size_t i = 0; i < students.size(); i++) 
+{
+cout << i + 1 << ". Name: " << students[i].name
+<< ", Roll No: " << students[i].rollNo
+<< ", Marks: " << students[i].marks
+<< ", Grade: " << students[i].grade << endl;
+}
+}
+
+break;
+
+case 3:
+// Exit
+cout << "Exiting program. Goodbye!\n";
+break;
+
+default:
+cout << "Invalid choice! Please enter 1, 2, or 3.\n";
+}
+
+} while (choice != 3);
+
+return 0;
+}
